@@ -1,7 +1,7 @@
-from dotenv import load_dotenv
 import os
-from os import path, sys
 from getpass import getpass
+from os import path, sys
+from dotenv import load_dotenv
 
 
 def get_env(var):
