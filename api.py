@@ -1,6 +1,7 @@
 import requests
 import __main__ as main
 from helper import get_env
+import moment
 
 
 def get_modules():
@@ -22,7 +23,12 @@ def get_schedules():
     RESPONSE = REQUEST.json()["contracts"][0]["schedules"]
     
     for DATE in RESPONSE:
-        main.schedules_list.append(DATE)
+        DATE = moment.date(DATE["start"])
+        DATA = {
+            "name": "Le {}".format(DATE.format("D/M/YYYY")),
+            "date": DATE.format("YYYY-M-D")
+        }
+        main.schedules_list.append(DATA)
          
          
 def post_declare_logs(index_module , index_day, index_hours, excuse):

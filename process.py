@@ -23,6 +23,8 @@ def print_propositions():
         HOURS = input("\nSelectionnez les horaires\n")
         while(int(HOURS) > len(main.hours_list) or int(HOURS) <= 0):
             HOURS = input("\nSelectionnez les horaires\n")
+        if(int(HOURS) == 4):
+            main.hours_list[3]["time"] = [input("début : (format = XX:XX)\n"), input("fin : (format = XX:XX)\n")]
         print('\x1bc')
     except KeyboardInterrupt:
         sys.exit()
@@ -35,17 +37,16 @@ def print_excuses(MODULE, DATE, HOURS):
     for i in range(10):
         print("{}\t: {}%".format((i + 1), (i + 1) * 10))
     print("11\t: Personnaliser")
-    index_excuse = input("\nVeuillez indiquer à combien de pourcentage vous estimez votre projet terminé.\n\n")
-    if(int(index_excuse) == 11):
-        try:
-            JUSTIFICATION = {
-                "objectif" : input("Objectif :\n"),
-                "action" : input("\n\nActions :\n"),
-                "resultat" : input("\n\nRésultats :\n")
-            }
-        except KeyboardInterrupt:
-            sys.exit()
-    else:
-        JUSTIFICATION = excuses[int(index_excuse)]
-        
+    try:
+        index_excuse = input("\nVeuillez indiquer à combien de pourcentage vous estimez votre projet terminé.\n\n")
+        if(int(index_excuse) == 11):
+                JUSTIFICATION = {
+                    "objectif" : input("Objectif :\n"),
+                    "action" : input("\n\nActions :\n"),
+                    "resultat" : input("\n\nRésultats :\n")
+                }
+        else:
+            JUSTIFICATION = excuses[int(index_excuse)]
+    except KeyboardInterrupt:
+        sys.exit()
     post_declare_logs(MODULE, DATE, HOURS, JUSTIFICATION)
